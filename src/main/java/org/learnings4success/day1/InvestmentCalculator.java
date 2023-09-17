@@ -21,15 +21,14 @@ public class InvestmentCalculator {
             System.out.println("Enter expected number of years for investment: ");
             int yearsOfInvestment = scanner.nextInt();
             System.out.println("Enter expected Annual interest: ");
-            double expectedAnnualRateOfInterest = scanner.nextDouble();
+            double expectedAnnualRateOfInterest = Double.valueOf(scanner.next());
 
             int investmentNumberOfMonths = yearsOfInvestment * 12;
             double monthlyInterestRate = expectedAnnualRateOfInterest / 12 / 100;
 
-            double calculatedValue = 0.0;
-            for (int i = 0; i < investmentNumberOfMonths; i++) {
-                calculatedValue = (1 + monthlyInterestRate) * (monthlyInvestmentAmount + calculatedValue);
-            }
+            System.out.println(monthlyInterestRate);
+
+            double calculatedValue = calculateValue(investmentNumberOfMonths, monthlyInvestmentAmount, monthlyInterestRate);
 
             Locale locale = new Locale("de", "de");
             NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
@@ -39,5 +38,13 @@ public class InvestmentCalculator {
             System.out.println("Would you like to continue for next investment y/n");
             input = scanner.next();
         }
+    }
+
+    public static double calculateValue(int investmentNumberOfMonths, int monthlyInvestmentAmount, double monthlyInterestRate) {
+        double calculatedValue = 0.0;
+        for (int i = 0; i < investmentNumberOfMonths; i++) {
+            calculatedValue = (1 + monthlyInterestRate) * (monthlyInvestmentAmount + calculatedValue);
+        }
+        return calculatedValue;
     }
 }
